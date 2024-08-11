@@ -55,7 +55,7 @@ public class HttpAuth {
     public static String generateCodeVerifier() {
         return UUID.randomUUID().toString().replace("-", "");
     }
-    public static String percentEncode(String value) {
+    public String percentEncode(String value) {
         try {
             return URLEncoder.encode(value, StandardCharsets.UTF_8.toString())
                     .replace("+", "%20")

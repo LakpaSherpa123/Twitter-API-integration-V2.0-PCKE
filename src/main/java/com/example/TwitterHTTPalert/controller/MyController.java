@@ -1,4 +1,5 @@
 package com.example.TwitterHTTPalert.controller;
+import com.example.TwitterHTTPalert.service.AlpacaAuth;
 import com.example.TwitterHTTPalert.service.HttpAuth;
 import com.example.TwitterHTTPalert.service.Tweets;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -60,6 +61,7 @@ public class MyController {
 //        tweet.postTweets(token);
         return ResponseEntity.ok("Token Generated " + response);
     }
+
     @PostMapping("/tweet")
     public ResponseEntity<String> post(@RequestBody String text) throws URISyntaxException, IOException, InterruptedException {
 
@@ -68,9 +70,20 @@ public class MyController {
 
         return ResponseEntity.ok("Posted");
     }
+    @GetMapping("/callbackAlpaca")
+    public ResponseEntity<String> callBackAlpaca(@RequestParam(value = "code") String response) throws URISyntaxException, IOException, InterruptedException {
 
-    @GetMapping("/tradovate")
+        System.out.println("Inside the callback");
+        AlpacaAuth http = new AlpacaAuth();
+        String token = http.getTokenAlpaca(response);
+        System.out.println("Token Generated = " + token);
+        return ResponseEntity.ok("Token Generated " + response);
+    }
+    @GetMapping("/alpacaTest")
     public ResponseEntity<String> tradovateAPI(){
-        return ResponseEntity.ok("This is tradovate api");
+        AlpacaAuth auth = new AlpacaAuth();
+        String authUrl  = auth.authenticateAlpaca();
+        openWebPage(authUrl);
+        return ResponseEntity.ok("This is Alpaca api");
     }
 }
