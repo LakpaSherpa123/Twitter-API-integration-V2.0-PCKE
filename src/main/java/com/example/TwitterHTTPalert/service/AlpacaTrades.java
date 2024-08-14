@@ -34,6 +34,7 @@ public class AlpacaTrades {
                 .POST(HttpRequest.BodyPublishers.ofString(jsonInput.toString()))
                 .build();
 
+
         HttpClient client = HttpClient.newHttpClient();
         HttpResponse<String> response = client.send(request, HttpResponse.BodyHandlers.ofString());
 

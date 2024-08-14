@@ -1,7 +1,10 @@
 package com.example.TwitterHTTPalert.controller;
 import com.example.TwitterHTTPalert.service.AlpacaAuth;
+import com.example.TwitterHTTPalert.service.AlpacaTrades;
 import com.example.TwitterHTTPalert.service.HttpAuth;
 import com.example.TwitterHTTPalert.service.Tweets;
+import org.apache.catalina.webresources.JarContents;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.http.ResponseEntity;
@@ -85,5 +88,20 @@ public class MyController {
         String authUrl  = auth.authenticateAlpaca();
         openWebPage(authUrl);
         return ResponseEntity.ok("This is Alpaca api");
+    }
+
+    @PostMapping("/placeAlpacaOrder")
+    public ResponseEntity<String> placeAlpacaOrder(@RequestBody String passedOrder) throws Exception {
+
+        System.out.println("Passed Json Order    ------> " + passedOrder);
+        JSONObject json = new JSONObject(passedOrder);
+        System.out.println("Passed Json Order    ------> " + json.getString("symbol"));
+           AlpacaTrades order = new AlpacaTrades();
+
+           String placingOrder = order.placeOrder(json.getString("symbol"), json.getInt("qty") , json.getString("side"), json.getString("market"), json.getString("timeInForce"));
+
+
+        return ResponseEntity.ok("Posted");
+
     }
 }

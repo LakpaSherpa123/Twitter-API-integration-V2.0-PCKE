@@ -71,16 +71,16 @@ public class AlpacaAuth {
         System.out.println("Token Generated = " + jsonTokenData.getString("access_token"));
         System.out.println(response.body());
 
-        //trades
-        try {
-
-            AlpacaTrades orders = new AlpacaTrades();
-            // Place an order
-            String orderResponse = orders.placeOrder("TSLA", 1, "buy", "market", "gtc");
-            System.out.println("Order Response: " + orderResponse);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+//        //trades
+//        try {
+//
+//            AlpacaTrades orders = new AlpacaTrades();
+//            // Place an order
+//            String orderResponse = orders.placeOrder("TSLA", 1, "buy", "market", "gtc");
+//            System.out.println("Order Response: " + orderResponse);
+//        } catch (Exception e) {
+//            e.printStackTrace();
+//        }
         return jsonTokenData.getString("access_token");
 
     }
