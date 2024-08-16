@@ -8,10 +8,9 @@ import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
 import java.util.UUID;
 
-public class AlpacaAuth {
+public class AlpacaService {
 
     private final String CLIENT_ID =  "44b17b4f06db4fc079fe434c76876427";
     private final String CLIENT_SECRET = "0721f50089fa5bb4c86c5662282396c5fd55ba9c";
@@ -23,7 +22,7 @@ public class AlpacaAuth {
 
         try {
             final String STATE = UUID.randomUUID().toString(); // Random state value
-            HttpAuth methodsFromHttpAuthClass = new HttpAuth();
+            TwitterService methodsFromHttpAuthClass = new TwitterService();
 
             final String authorizationAlpacaURL = "https://app.alpaca.markets/oauth/authorize" +
                     "?response_type=code" +

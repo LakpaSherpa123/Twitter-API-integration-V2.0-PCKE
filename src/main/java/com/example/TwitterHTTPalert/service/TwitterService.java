@@ -16,7 +16,7 @@ import org.json.JSONObject;
 import org.springframework.stereotype.Service;
 
 @Service
-public class HttpAuth {
+public class TwitterService {
 
     private static final String BEARER_TOKEN = "AAAAAAAAAAAAAAAAAAAAAFbZuwEAAAAAvZgjPE3wi2auhhaFnC%2F%2FwRW%2FE%2Fs%3D0fTRXErL8ZwLF6vaolR9TGxRsnXOV123Wf9NGVzEN9QCNABBTA";
     private static final String CONSUMER_KEY ="9XDZLLVnqmEcSDI1TTYRgDNvR";

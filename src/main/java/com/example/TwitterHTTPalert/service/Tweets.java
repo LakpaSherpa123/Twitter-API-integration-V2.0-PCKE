@@ -1,16 +1,15 @@
 package com.example.TwitterHTTPalert.service;
 
-import com.example.TwitterHTTPalert.TwitterHttPalertApplication;
 import org.json.JSONObject;
-import org.springframework.beans.factory.annotation.Autowired;
-
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
-import java.util.Base64;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Tweets {
 
@@ -49,5 +48,59 @@ public class Tweets {
         System.out.println(response.statusCode());
         System.out.println(response + response.body());
 
+
     }
+
+
+
+    public void parseTweet(){
+        String tweet = " #ALERT\n" +
+                "\n" +
+                "BTO $SPY 8/16 552C\n" +
+                "\n" +
+                "1.49\n" +
+                "\n" +
+                "_____\n" +
+                "\n" +
+                "Friday #LOTTO\n" +
+                "\n" +
+                "SIZE/EXPECT 0\n" +
+                "\n" +
+                "Room to add once on weakness";
+
+        Pattern pattern = Pattern.compile("BTO (\\$\\w+) (\\d+/\\d+) (\\d+(\\.\\d+)?C)");
+        Matcher matcher = pattern.matcher(tweet);
+
+        // Extract the data
+        if (matcher.find()) {
+            String ticker = matcher.group(1).replace("$","").toUpperCase(); // $SPY
+            String date = matcher.group(2);   // 8/16
+            String strike = matcher.group(3); // 552C
+            char callPut = strike.charAt(strike.length() -1);
+
+            //Converting Strike into Option 8 digit format
+            String parsingStrike = strike.substring(0,strike.length() -1);
+            Double d = Double.parseDouble(parsingStrike) *1000;
+            String formattedStrike = String.format("%08d", Integer.parseInt(Double.toString(d).substring(0,Double.toString(d).length() -2)));
+
+            //storing date in different variables
+            String [] dateApart = date.split("/");
+            String year = "24";
+            String month = String.format("%02d" , Integer.parseInt(dateApart[0]) );
+            String day = String.format("%02d" , Integer.parseInt(dateApart[1]) );
+
+            System.out.println("Ticker: " + ticker);
+            System.out.println("Date: " + date);
+            System.out.println("Strike: " + formattedStrike);
+
+
+            String optionContract = ticker+ year +month+day+callPut+ formattedStrike;
+
+            System.out.println("Converted Option Contract =  " +optionContract);
+            //Creating an option Contract
+        }
+
+    }
+
 }
+

@@ -7,7 +7,7 @@ import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
 
-public class AlpacaTrades {
+public class Alpaca {
 
     private final String API_KEY_ID = "PKM0OE5UQMFCP7R2XHJD";
     private final String API_SECRET_KEY = "UovxFgxk3CgO8epPVz60LglLEfF4pkzPSbZeaO3t";
@@ -22,8 +22,6 @@ public class AlpacaTrades {
         jsonInput.put("side", side);
         jsonInput.put("type", type);
         jsonInput.put("time_in_force", timeInForce);
-      //  jsonInput.put("order_class", "simple");
-       // jsonInput.put("asset_class", "option"); // Ensure asset class is specified
 
         System.out.println("Until here is fine  " + jsonInput );
         HttpRequest request = HttpRequest.newBuilder()
