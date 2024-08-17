@@ -9,9 +9,26 @@ import java.net.http.HttpResponse;
 
 public class Alpaca {
 
-    private final String API_KEY_ID = "PKM0OE5UQMFCP7R2XHJD";
-    private final String API_SECRET_KEY = "UovxFgxk3CgO8epPVz60LglLEfF4pkzPSbZeaO3t";
-    private final String PAPER_TRADE_URI = "https://paper-api.alpaca.markets";
+    private String API_KEY_ID = "PKM0OE5UQMFCP7R2XHJD";
+    private String API_SECRET_KEY = "UovxFgxk3CgO8epPVz60LglLEfF4pkzPSbZeaO3t";
+    private String PAPER_TRADE_URI = "https://paper-api.alpaca.markets";
+
+    public String getAPI_KEY_ID() {
+        return API_KEY_ID;
+    }
+
+    public String getAPI_SECRET_KEY() {
+        return API_SECRET_KEY;
+    }
+
+    public void getAPI_KEY_ID(String api_Key) {
+        this.API_KEY_ID = api_Key;
+    }
+
+    public void getAPI_SECRET_KEY(String api_Secret) {
+        this.API_SECRET_KEY = api_Secret;
+    }
+
 
     public String placeOrder(String symbol, int qty, String side, String type, String timeInForce) throws Exception {
         String endpoint = PAPER_TRADE_URI + "/v2/orders";
