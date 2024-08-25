@@ -42,6 +42,7 @@ public class MyController {
     }
 
 
+
     @PostMapping("/login")
     public ResponseEntity<String> login(@RequestBody ApplicationLogin user)
     {
@@ -53,8 +54,14 @@ public class MyController {
 
     }
     @PostMapping("/signup")
-    public ApplicationLogin signUP(@RequestBody ApplicationLogin data){
-            return applicationService.signUp(data);
-    }
+    public ResponseEntity<String> signUP(@RequestBody ApplicationLogin data) {
+        ApplicationLogin usernameAvailability = applicationService.findUser(data);
 
+        if (usernameAvailability == null) {
+            ApplicationLogin signedUpUser = applicationService.signUp(data);
+            return ResponseEntity.ok( data.getUsername() + " successfully signed up");
+        } else {
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("username not available");
+        }
+    }
 }

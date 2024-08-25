@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.UUID;
 
 
 @Service
@@ -23,15 +24,17 @@ public class ApplicationService {
 
 
     public ApplicationLogin signUp(ApplicationLogin data){
+        data.setId(UUID.randomUUID().toString());           //generates a random string for ID
+
         return loginRepository.save(data);
     }
 
     public ApplicationLogin findUser(ApplicationLogin user)
     {
-        Optional<ApplicationLogin> optionalLoginUser = loginRepository.findByUsername(user.getUsername());
+        Optional<ApplicationLogin> optionalLoginUser = loginRepository.findByUsername(user.getUsername()); //finds the user with username
 
         if(optionalLoginUser.isPresent()){
-            ApplicationLogin existingUserFound = optionalLoginUser.get();
+            ApplicationLogin existingUserFound = optionalLoginUser.get();           //get the existing user
             if(user.getPassword().equals(existingUserFound.getPassword())){
                 return existingUserFound;
             }
